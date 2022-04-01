@@ -2,6 +2,9 @@
 
 A PCF8574 I2C multiplexer chip can add eight digital I/O pins to a microcontroller project.
 
+![Prototype with 8 buttons attached to PCF8574](https://github.com/IowaDave/PCF8574_Eight_More_I-O_Pins/blob/main/images/IMG_2743.png)
+
+
 ### Introduction
 
 The PCF8574 integrated circuit provides eight, digital I/O pins. 
