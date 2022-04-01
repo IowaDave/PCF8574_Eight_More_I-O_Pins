@@ -89,7 +89,7 @@ Note that values and properties associated with the class are accessed through m
 
 * ```int pin (uint8_t pinNumber)```
    * Returns the value of the specified pin.
-   * Returns an error code, &endash;1, if pinNumber is negative, or if it is greater than 7.
+   * Returns an error code, &endash; 1, if pinNumber is negative, or if it is greater than 7.
 
 * ```void setInterval (uint16_t interval)```
     * Sets the number of milliSeconds that ```refresh()``` will delay before taking the next reading of the data register on the PCF8574.
