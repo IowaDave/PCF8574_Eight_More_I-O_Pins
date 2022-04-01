@@ -11,7 +11,7 @@ The PCF8574 integrated circuit provides eight, digital I/O pins.
 
 Your project can access the pins through an I2C connection. It can both read and set the binary value, 0 or 1, for each pin. This means it can detect signals received from peripherals attached to the pins, and write control signals out to them.
 
-The integrated circuit can be used directly. Plug it into a breadboard as shown in Figure 4, below.
+The integrated circuit can be used directly. Plug it into a breadboard as shown in the photo, above.
 
 This project includes a C++ library named EightMorePins that you can use for interacting with the PCF8574. The library has been tested in the Arduino IDE for AVR-based Arduinos and for ESP8266s.
 
