@@ -8,7 +8,7 @@ The PCF8574 integrated circuit provides eight, digital I/O pins.
 
 Your project can access the pins through an I2C connection. It can both read and set the binary value, 0 or 1, for each pin. This means it can detect signals received from peripherals attached to the pins, and write control signals out to them.
 
-The integrated circuit can be used directly. Plug it into a breadboard as shown in Figure x, below.
+The integrated circuit can be used directly. Plug it into a breadboard as shown in Figure 4, below.
 
 This project includes a C++ library named EightMorePins that you can use for interacting with the PCF8574. The library has been tested in the Arduino IDE for AVR-based Arduinos and for ESP8266s.
 
@@ -100,7 +100,7 @@ Note that values and properties associated with the class are accessed through m
 ### Connecting to the PCF8574
 The integrated circuit is available in several different shapes and sizes. This project targets the PDIP16 package. "PDIP" stands for Plastic Dual In-line Pins, I think. 
 
-The diagram of the package in Figure x, below, labels the pins with their functions. A notch at one end of the package establishes their locations. Figure 1, below, is borrowed from the NXT version of the PCF8574 datasheet.
+The diagram of the package in Figure 1, below, labels the pins with their functions. A notch at one end of the package establishes their locations. Figure 1 is borrowed from the NXT version of the PCF8574 datasheet.
 
 ![Diagram of PCF8574 PDIP Package](https://github.com/IowaDave/PCF8574_Eight_More_I-O_Pins/blob/main/images/DIP.png)<br>
 **Figure 1**. PDIP Package
@@ -136,7 +136,7 @@ The following list describes a minimal set of connections that I used for the ex
 
 *Pin 16 VCC* is interesting. Should there be capacitors? The Texas Instruments datasheet recommends attaching two capacitors: a "small" one to tame noisy power plus a "larger" one to sustain the chip through potentially greater voltage fluctuations. They don't say how small or large. 
 
-I supplied regulated power to the chip and did not experience any issues, even with no capacitor attached. But then, I decided it was finally time for me to buy some capacitors. You'll see two, that I somewhat arbitrarily chose, in the photo of the example, Figure x.
+I supplied regulated power to the chip and did not experience any issues, even with no capacitor attached. But then, I decided it was finally time for me to buy some capacitors. You'll see two, that I somewhat arbitrarily chose, in the photo of the example, Figure 4.
 
 ### Using The I/O Pins
 Datasheets for the PCF8574 describe pins 4-7 (P0 - P3) and 9-12 (P4 - P7)  as "quasi-bidirectional ports." They speak of a port as being used in two "modes": input and output. But there is no way to set a mode of operation inside the PCF8574. What does "mode" mean? At the time of writing, I remained a little bit unsure.
@@ -197,15 +197,20 @@ It shows:
 
 * SDA, SCL and INT connecting to a microcontroller, with 10K-Ohm pullup resistors attached.
 * A0, A1 and A2 hard-wired to ground, holding the I2C address to its built-in default.
-* Six of the I/O pins being used, each for a different purpose. The arrows offer a clue to the direction in which data flows at each pin:
+* Six of the I/O pins being used, each for a different purpose. The arrows offer a clue to the direction in which data flows at each pin. Note the 100K-Ohm pullup resistors on the three **input** ports:
     * P0 is in an **output** connected to an LED. The arrangement might look odd. It's discussed in detail later in this article.
     * P1 is an **input**, set to receive a signal from the interrupt output of Subsystem 1.
     * P2 is an **output**, able to send a "reset" signal to Subsystem 2.
     * P3 is an **output**, able to send an "enable" signal to a controlled device.
     * P4 is an **input**, able to receive an alarm signal from Subsystem 3
-    * P5 is an **input**, connected to a pushbutton switch. The pin would detect the presence of voltage (importantly -- through a current limiting resistor) when the pushbutton is depressed. 
+    * P5 is an **input**, connected to a pushbutton switch. 
 
-A note about P5, as illustrated above. The example program in this article wires up its pushbuttons in a different, potentially safer configuration.
+To be honest, I believe the illustration for P5 contains an typographical error. It shows the pushbutton switch attached through a resistor to VCC. This cannot be correct, for the following reasons:
+
+* Following guidance in the datasheet, input ports must first be written with a "1" before beginning to read them. 
+* There is also a pullup resistor on the line between the switch and port P5, which will try to hold the value of P5 at 1. 
+* The only change the switch could make on P5 would be to pull it down to "0".
+* The only way the switch can make that change would be to terminate at VSS, that is, at ground, and not VCC. I wired the pushbuttons that way in my prototype for the example program. See Figure 4.
 
 ### Switching LEDs and Other Circuits
 
@@ -239,7 +244,7 @@ The example program, Eight_buttons, demonstrates using the Library with a protot
 ![Prototype with 8 buttons attached to PCF8574](https://github.com/IowaDave/PCF8574_Eight_More_I-O_Pins/blob/main/images/IMG_2743.png)<br>
 **Figure 4**. Prototype having eight pushbuttons attached to a PCF8574
 
-Each button connects to one of the Ports, P0 through P7, and to ground. The program explicityly initializes the data register bits in the PCF8574 11111111. This activates the internal pullups on the ports. 
+Each button connects to one of the Ports, P0 through P7, and to ground. The program explicity initializes the data register bits in the PCF8574 11111111. This activates the internal pullups on the ports. 
 
 * Pressing a button connects a port to ground, taking its corresponding bit in the data register to 0. 
 * Releasing the button breaks the connection to ground. The internal pullup restores the corresponding pin to a value of 1.
