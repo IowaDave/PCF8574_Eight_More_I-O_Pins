@@ -214,7 +214,7 @@ To be honest, I believe the illustration for P5 contains an typographical error.
 
 ### Switching LEDs and Other Circuits
 
-The I/O ports on a PCF8574 work differently compared to those on an Arduino or other microcontroller. They put out very little current when set to HIGH (that is, writing their corresponding bit to 1). The amount is less than 1 mA. Maybe a lot less. It is a *signal*, not a *source*. It is not enough to light up an LED, nor to actuate any other circuit that needs much current.
+The I/O ports on a PCF8574 work differently compared to those on an Arduino or other microcontroller. They put out very little current when set to HIGH (that is, writing their corresponding bit to 1). The amount is less than 1 mA. Maybe a lot less. It is a *signal*, not a *source*. It is not enough to light up an LED, nor to supply any other circuit that needs much current.
 
 By contrast, the I/O ports on a PCF8574 can *sink* (that is, convey to ground) a significant amount of current. How much? See the datasheets for details. Really. You want to get familiar with the maximum current limits they specify. 
 
