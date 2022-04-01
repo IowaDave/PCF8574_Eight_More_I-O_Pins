@@ -79,8 +79,8 @@ Note that values and properties associated with the class are accessed through m
     * Set or clear bits in the byte to regulate pins on the PCF8574.
 
 * ```bool changed (void)```
-    * Every call to ```refresh()``` compares the newly-obtained value of the data register of the OCF8574 to the previously-obtained value.
-    * This method returns:
+    * Every call to ```refresh()``` compares the newly-obtained value of the data register of the OCF8574 to the previously-obtained value. A flag is set indicating the result of the comparison.
+    * This method returns the value of the flag:
         * *true* if the values were different, indicating a change has taken place.
         * *false* if the values were the same, indicating no-change.
 
