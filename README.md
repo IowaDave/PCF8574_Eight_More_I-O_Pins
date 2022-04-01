@@ -100,9 +100,10 @@ Note that values and properties associated with the class are accessed through m
 ### Connecting to the PCF8574
 The integrated circuit is available in several different shapes and sizes. This project targets the PDIP16 package. "PDIP" stands for Plastic Dual In-line Pins, I think. 
 
-The diagram of the package in Figure x, below, labels the pins with their functions. A notch at one end of the package establishes their locations. 
+The diagram of the package in Figure x, below, labels the pins with their functions. A notch at one end of the package establishes their locations. Figure 1, below, is borrowed from the NXT version of the PCF8574 datasheet.
 
-
+![Diagram of PCF8574 PDIP Package](https://github.com/IowaDave/PCF8574_Eight_More_I-O_Pins/blob/main/images/DIP.png)<br>
+**Figure 1**. PDIP Package
 
 The following list describes a minimal set of connections that I used for the example project. Caution: my list might contain an error or be incomplete. The official datasheets are the only reliable source of information about how to make connections in your specific situation.
 
@@ -189,7 +190,8 @@ myPins.setRegister(pinBits); // write the bits to the PCF8574
 
 Take a look at this diagram, excerpted from the Texas Instruments datasheet. 
 
-
+![An example application](https://github.com/IowaDave/PCF8574_Eight_More_I-O_Pins/blob/main/images/application.png)<br>
+**Figure 2**. An example application for the PCF8574
 
 It shows:
 
@@ -223,15 +225,22 @@ Your code would turn the LED "on" by writing a 0 to the relevant port bit. The 0
 
 There is an interesting further note about LEDs in the Texas Instruments datasheet. Unlike Arduinos, a port pin on a PCF8574 does not have a high-impedance "input" mode. The port pin may continue to accept current through the LED even when its port bit is set to 1. It will do this while the voltage *at the pin* remains lower compared to the voltage driving the LED. Apparently (I do not fully understand this) the fact that the LED "drops" voltage can result in such a difference. I suspect it's a concern mainly for situations where power supply is limited, such as when running on batteries.
 
-TI suggests connecting a *second*, high-value resistor between VCC and the port pin, in parallel with the LED and its current-limiting resistor. Why? I imagine it's to pull up the voltage at the port to near VCC, neutralizing the electrical potential across the LED and minimizing current flow.
+TI suggests connecting a *second*, high-value resistor between VCC and the port pin, in parallel with the LED and its current-limiting resistor. See Figure 3, excerpted from the TI datasheet. 
+
+![Wiring an LED](https://github.com/IowaDave/PCF8574_Eight_More_I-O_Pins/blob/main/images/led.png)<br>
+**Figure 3**. Wiring an LED with PCF8574
+
+Why add the extra resistor? I imagine it's to pull up the voltage at the port to near VCC, neutralizing the electrical potential across the LED and minimizing current flow.
 
 ### An Example With Eight Pushbuttons
 
-The example program, Eight_buttons, demonstrates using the Library with a prototype board having eight pushbuttons. See Figure x, below.
+The example program, Eight_buttons, demonstrates using the Library with a prototype board having eight pushbuttons. See Figure 4, below.
 
+![Prototype with 8 buttons attached to PCF8574](https://github.com/IowaDave/PCF8574_Eight_More_I-O_Pins/blob/main/images/IMG_2743.png)<br>
+**Figure 4**. Prototype having eight pushbuttons attached to a PCF8574
 
+Each button connects to one of the Ports, P0 through P7, and to ground. The program explicityly initializes the data register bits in the PCF8574 11111111. This activates the internal pullups on the ports. 
 
-Each button connects to one of the Ports, P0 through P7, and to ground. The data register bits in the PCF8574 are initialized explicitly to 11111111. This activates the internal pullups on the ports. 
 * Pressing a button connects a port to ground, taking its corresponding bit in the data register to 0. 
 * Releasing the button breaks the connection to ground. The internal pullup restores the corresponding pin to a value of 1.
 
