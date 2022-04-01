@@ -89,7 +89,7 @@ Note that values and properties associated with the class are accessed through m
 
 * ```int pin (uint8_t pinNumber)```
    * Returns the value of the specified pin.
-   * Returns an error code, -1, if pinNumber is negative, or if it is greater than 7.
+   * Returns an error code, -1, if ```pinNumber``` is negative, or if it is greater than 7.
 
 * ```void setInterval (uint16_t interval)```
     * Sets the number of milliSeconds that ```refresh()``` will delay before taking the next reading of the data register on the PCF8574.
@@ -208,7 +208,7 @@ It shows:
     * P4 is an **input**, able to receive an alarm signal from Subsystem 3
     * P5 is an **input**, connected to a pushbutton switch. 
 
-To be honest, I believe the illustration for P5 contains an typographical error. It shows the pushbutton switch attached through a resistor to VCC. This cannot be correct, for the following reasons:
+To be honest, I believe the illustration for P5 contains an typographical error. It shows the pushbutton switch attached through a resistor to VCC. This cannot be correct. The switch must terminate at VSS, i.e., at Ground, for the following reasons:
 
 * Following guidance in the datasheet, input ports must first be written with a "1" before beginning to read them. 
 * There is also a pullup resistor on the line between the switch and port P5, which will try to hold the value of P5 at 1. 
