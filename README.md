@@ -13,7 +13,7 @@ Your project can access the pins through an I2C connection. It can both read and
 
 The integrated circuit can be used directly. Plug it into a breadboard as shown in the photo, above.
 
-This project includes a C++ library named EightMorePins that you can use for interacting with the PCF8574. The library has been tested in the Arduino IDE for AVR-based Arduinos and for ESP8266s.
+This project includes a C++ library named EightMorePins that you can use for interacting with the PCF8574. The library has been tested in the Arduino IDE for 5-volt AVR-based Arduinos and for 3.3-volt ESP8266s.
 
 An example project illustrates using the library with eight pushbuttons.
 
