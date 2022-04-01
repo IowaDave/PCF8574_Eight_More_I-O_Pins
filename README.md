@@ -87,7 +87,7 @@ Note that values and properties associated with the class are accessed through m
 * ```char * bitsAsString (void)```
     * Returns a pointer to a C-type string representing the bits in the local copy of the data register as '1' or '0'.
 
-* ```int pin (uint8_t pinNumber)``
+* ```int pin (uint8_t pinNumber)```
    * Returns the value of the specified pin.
    * Returns an error code, &endash;1, if pinNumber is negative, or if it is greater than 7.
 
